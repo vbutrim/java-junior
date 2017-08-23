@@ -4,23 +4,14 @@ public class Logger {
     public static void log(Object message) {
         if (message instanceof String) {
             System.out.print("string: ");
-        } else {
+        } else if (message instanceof Character) {
+            System.out.print("char: ");
+        } else if (message instanceof Number ||
+                   message instanceof Boolean) {
+            System.out.print("primitive: ");
+        } else
             System.out.print("reference: ");
-        }
 
-        System.out.println(message);
+        System.out.println(message + "\n");
     }
-
-    public static void log(int message) {
-        System.out.println("primitive: " + message);
-    }
-
-    public static void log(boolean message) {
-        System.out.println("primitive: " + message);
-    }
-
-    public static void log(char message) {
-        System.out.println("char: " + message);
-    }
-
 }
