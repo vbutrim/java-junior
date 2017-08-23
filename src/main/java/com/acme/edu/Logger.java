@@ -12,6 +12,6 @@ public class Logger {
         } else
             System.out.print("reference: ");
 
-        System.out.println(message + "\n");
+        System.out.print(message + "\n");
     }
 }
