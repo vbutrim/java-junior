@@ -56,7 +56,7 @@ public class LoggerTest implements SysoutCaptureAndAssertionAbility {
 
     /*
     TODO: implement Logger solution to match specification as tests
-
+    */
     @Test
     public void shouldLogChar() throws IOException {
         //region when
@@ -110,6 +110,4 @@ public class LoggerTest implements SysoutCaptureAndAssertionAbility {
         assertSysoutContains("@");
         //endregion
     }
-
-    */
 }
