@@ -24,6 +24,7 @@ public class LoggerTest implements SysoutCaptureAndAssertionAbility {
     }
     //endregion
 
+    /*
     @Test
     public void shouldLogInteger() throws IOException {
         //region when
@@ -36,7 +37,7 @@ public class LoggerTest implements SysoutCaptureAndAssertionAbility {
         assertSysoutContains("primitive: ");
         assertSysoutEquals("primitive: 1" + lineSeparator() + "primitive: 0" + lineSeparator() + "primitive: -1" + lineSeparator());
         //endregion
-    }
+    } */
 
     @Test
     public void shouldLogByte() throws IOException {

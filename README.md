@@ -694,3 +694,5 @@ http://tinyurl.com/skilltrekreadinglist
 
 # Additional Topics
 - Top-5 Java Frameworks Overview
+- Typing systems: строгая vs динамическая
+- @NotNull
