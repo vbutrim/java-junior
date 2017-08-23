@@ -5,13 +5,29 @@ import java.util.Objects;
 import static java.lang.System.lineSeparator;
 
 public class Logger {
+    static private boolean toInput = false;
+    static private int currentSum = 0;
+
     public static void log(Object message) {
+        if (toInput && !(message instanceof Integer)) {
+            System.out.print("primitive: " + currentSum + lineSeparator());
+            toInput = false;
+            currentSum = 0;
+        }
+
         if (message instanceof String) {
+            String[] args = ((String) message).split(" ");
+            if ("str".equals(args[0])) {
+                message = args[1];
+            }
             System.out.print("string: ");
         } else if (message instanceof Character) {
             System.out.print("char: ");
-        } else if (message instanceof Number ||
-                message instanceof Byte ||
+        } else if (message instanceof Integer) {
+            currentSum += (int) message;
+            toInput = true;
+            return;
+        } else if (message instanceof Byte ||
                 message instanceof Boolean) {
             System.out.print("primitive: ");
         } else
@@ -88,5 +104,13 @@ public class Logger {
                 .append("c")
                 .append("d"); //Oracle JVM optimization
         //endregion
+    }
+
+    public static void flush() {
+        if (toInput) {
+            System.out.print("primitive: " + currentSum + lineSeparator());
+            toInput = false;
+            currentSum = 0;
+        }
     }
 }
