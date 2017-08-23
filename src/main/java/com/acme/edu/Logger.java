@@ -2,6 +2,8 @@ package com.acme.edu;
 
 import java.util.Objects;
 
+import static java.lang.System.lineSeparator;
+
 public class Logger {
     public static void log(Object message) {
         if (message instanceof String) {
@@ -15,7 +17,7 @@ public class Logger {
         } else
             System.out.print("reference: ");
 
-        System.out.print(message + "\n");
+        System.out.print(message + lineSeparator());
     }
 
     public strictfp static void main(String... args) {
