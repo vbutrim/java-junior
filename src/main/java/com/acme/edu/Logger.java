@@ -84,10 +84,8 @@ public class Logger {
     }
 
     public static void log(Object message) {
-        if (toInput && !(message instanceof Integer)) {
-            System.out.print(format(currentSum));
-            toInput = false;
-            currentSum = 0;
+        if (!(message instanceof Integer)) {
+            flushInt();
         }
 
         if (!(message instanceof String)) {
