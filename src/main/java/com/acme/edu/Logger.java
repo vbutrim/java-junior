@@ -31,18 +31,14 @@ public class Logger {
             if (!previousString.equals((String) message)) {
                 flushString();
                 previousString = (String) message;
-                ++countPrevString;
-            } else {
-                ++countPrevString;
             }
+            ++countPrevString;
 
             return;
-
-            // System.out.print("string: ");
         } else if (message instanceof Character) {
             System.out.print("char: ");
         } else if (message instanceof Integer) {
-            if (currentSum != 0 && currentSum + (int) message < Integer.MIN_VALUE + (int)message - 2) {
+            if (currentSum != 0 && currentSum + (int) message < Integer.MIN_VALUE + (int) message - 2) {
                 System.out.print("primitive: " + currentSum + lineSeparator());
                 toInput = false;
                 currentSum = 0;
@@ -89,7 +85,7 @@ public class Logger {
 
         //region Castings
         int ii = 1_000;
-        byte bbb = (byte)ii;
+        byte bbb = (byte) ii;
 //        System.out.println(bbb);
         //endregion
 
@@ -136,8 +132,6 @@ public class Logger {
         //endregion
     }
 
-    // public static void flush
-
     public static void flushInt() {
         if (toInput) {
             System.out.print("primitive: " + currentSum + lineSeparator());
@@ -147,7 +141,7 @@ public class Logger {
     }
 
     public static void flushString() {
-        if ( countPrevString != 0 && !"".equals(previousString)) {
+        if (countPrevString != 0 && !"".equals(previousString)) {
             System.out.print("string: " + previousString);
             if (countPrevString > 1) {
                 System.out.print(" (x" + countPrevString + ")");
