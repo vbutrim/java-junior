@@ -41,6 +41,13 @@ public class Logger {
     }
 
     @NotNull
+    static private String format(String message) {
+        StringBuilder result = new StringBuilder("string: ");
+        result.append(message + lineSeparator());
+        return result.toString();
+    }
+
+    @NotNull
     static private String format(int[] message) {
         StringBuilder result = new StringBuilder("primitives array: {");
         int lengthMas = (message).length;
@@ -52,7 +59,26 @@ public class Logger {
         return result.toString();
     }
 
-    public static void resetStringState() {
+    private static void flushInt() {
+        if (toInput) {
+            System.out.print(format(currentSum));
+            toInput = false;
+            currentSum = 0;
+        }
+    }
+
+    private static void flushString() {
+        if (countPrevString != 0 && !"".equals(previousString)) {
+            if (countPrevString > 1) {
+                System.out.print(format(previousString + " (x" + countPrevString + ")"));
+            } else {
+                System.out.print(format(previousString));
+            }
+            resetStringState();
+        }
+    }
+
+    private static void resetStringState() {
         countPrevString = 0;
         previousString = "";
     }
@@ -102,29 +128,12 @@ public class Logger {
         resetStringState();
     }
 
+    /**
+     * finalize work with logger at all
+     */
     public static void flush() {
         flushInt();
         flushString();
-    }
-
-    public static void flushInt() {
-        if (toInput) {
-            System.out.print(format(currentSum));
-            toInput = false;
-            currentSum = 0;
-        }
-    }
-
-    public static void flushString() {
-        if (countPrevString != 0 && !"".equals(previousString)) {
-            System.out.print("string: " + previousString);
-            if (countPrevString > 1) {
-                System.out.print(" (x" + countPrevString + ")");
-            }
-            System.out.print(lineSeparator());
-
-            resetStringState();
-        }
     }
 }
 
