@@ -29,8 +29,8 @@ public class Logger {
             }
 
             if (!previousString.equals((String) message)) {
-                previousString = (String) message;
                 flushString();
+                previousString = (String) message;
                 ++countPrevString;
             } else {
                 ++countPrevString;

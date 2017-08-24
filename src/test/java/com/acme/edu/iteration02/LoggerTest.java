@@ -37,6 +37,7 @@ public class LoggerTest implements SysoutCaptureAndAssertionAbility {
         Logger.log("str 2");
         Logger.log(0);
         Logger.flushInt();
+        Logger.flushString();
         //endregion
 
         //region then
@@ -80,6 +81,7 @@ public class LoggerTest implements SysoutCaptureAndAssertionAbility {
         Logger.log("str 2");
         Logger.log(0);
         Logger.flushInt();
+        Logger.flushString();
         //endregion
 
         //region then
@@ -105,6 +107,7 @@ public class LoggerTest implements SysoutCaptureAndAssertionAbility {
         Logger.log("str 3");
         Logger.log("str 3");
         Logger.flushInt();
+        Logger.flushString();
         //endregion
 
         //region then
