@@ -75,6 +75,7 @@ public class LoggerTest implements SysoutCaptureAndAssertionAbility {
     @Test
     public void shouldLogCorrectlyByteOverflowWhenSequentBytes() {
         //region when
+        Logger.countPrevString = 0;
         Logger.log("str 1");
         Logger.log((byte)10);
         Logger.log((byte)Byte.MAX_VALUE);

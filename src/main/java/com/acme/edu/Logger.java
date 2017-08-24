@@ -6,7 +6,7 @@ import static java.lang.System.lineSeparator;
 
 public class Logger {
     static private String previousString = "";
-    static private int countPrevString = 1;
+    static public int countPrevString = 1;
 
     static private boolean toInput = false;
     static private int currentSum = 0;
