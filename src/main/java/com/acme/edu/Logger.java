@@ -5,6 +5,9 @@ import java.util.Objects;
 import static java.lang.System.lineSeparator;
 
 public class Logger {
+    static private String previousString = "";
+    static private int countPrevString = 1;
+
     static private boolean toInput = false;
     static private int currentSum = 0;
 
@@ -15,17 +18,41 @@ public class Logger {
             currentSum = 0;
         }
 
+        if (!(message instanceof String)) {
+            flushString();
+        }
+
         if (message instanceof String) {
             String[] args = ((String) message).split(" ");
             if ("str".equals(args[0])) {
                 message = args[1];
             }
-            System.out.print("string: ");
+
+            if (!previousString.equals((String) message)) {
+                previousString = (String) message;
+                flushString();
+                ++countPrevString;
+            } else {
+                ++countPrevString;
+            }
+
+            return;
+
+            // System.out.print("string: ");
         } else if (message instanceof Character) {
             System.out.print("char: ");
         } else if (message instanceof Integer) {
+            if (currentSum != 0 && currentSum + (int) message < Integer.MIN_VALUE + (int)message - 2) {
+                System.out.print("primitive: " + currentSum + lineSeparator());
+                toInput = false;
+                currentSum = 0;
+            }
             currentSum += (int) message;
             toInput = true;
+
+            countPrevString = 0;
+            previousString = "";
+
             return;
         } else if (message instanceof Byte ||
                 message instanceof Boolean) {
@@ -34,6 +61,9 @@ public class Logger {
             System.out.print("reference: ");
 
         System.out.print(message + lineSeparator());
+
+        countPrevString = 0;
+        previousString = "";
     }
 
     public strictfp static void main(String... args) {
@@ -106,11 +136,25 @@ public class Logger {
         //endregion
     }
 
-    public static void flush() {
+    // public static void flush
+
+    public static void flushInt() {
         if (toInput) {
             System.out.print("primitive: " + currentSum + lineSeparator());
             toInput = false;
             currentSum = 0;
+        }
+    }
+
+    public static void flushString() {
+        if ( countPrevString != 0 && !"".equals(previousString)) {
+            System.out.print("string: " + previousString);
+            if (countPrevString > 1) {
+                System.out.print(" (x" + countPrevString + ")");
+            }
+            System.out.print(lineSeparator());
+            countPrevString = 0;
+            previousString = "";
         }
     }
 }

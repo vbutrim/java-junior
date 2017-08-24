@@ -36,7 +36,7 @@ public class LoggerTest implements SysoutCaptureAndAssertionAbility {
         Logger.log(2);
         Logger.log("str 2");
         Logger.log(0);
-        Logger.flush();
+        Logger.flushInt();
         //endregion
 
         //region then
@@ -48,7 +48,7 @@ public class LoggerTest implements SysoutCaptureAndAssertionAbility {
         );
         //endregion
     }
-    /*
+
     @Test
     public void shouldLogCorrectlyIntegerOverflowWhenSequentIntegers() {
         //region when
@@ -57,15 +57,16 @@ public class LoggerTest implements SysoutCaptureAndAssertionAbility {
         Logger.log(Integer.MAX_VALUE);
         Logger.log("str 2");
         Logger.log(0);
+        Logger.flushInt();
         //endregion
 
         //region then
         assertSysoutEquals(
-            "str 1\n" +
-            "10\n" +
-            Integer.MAX_VALUE + "\n" +
-            "str 2\n" +
-            "0\n"
+            "string: 1" + lineSeparator() +
+            "primitive: 10" + lineSeparator() +
+            "primitive: " + Integer.MAX_VALUE + lineSeparator() +
+            "string: 2" + lineSeparator() +
+            "primitive: 0" + lineSeparator()
         );
         //endregion
     }
@@ -78,15 +79,16 @@ public class LoggerTest implements SysoutCaptureAndAssertionAbility {
         Logger.log((byte)Byte.MAX_VALUE);
         Logger.log("str 2");
         Logger.log(0);
+        Logger.flushInt();
         //endregion
 
         //region then
         assertSysoutEquals(
-            "str 1\n" +
-            "10\n" +
-            Byte.MAX_VALUE + "\n" +
-            "str 2\n" +
-            "0\n"
+            "string: 1" + lineSeparator() +
+            "primitive: 10" + lineSeparator() +
+            "primitive: " + Byte.MAX_VALUE + lineSeparator() +
+            "string: 2" + lineSeparator() +
+            "primitive: 0" + lineSeparator()
         );
         //endregion
     }
@@ -102,18 +104,17 @@ public class LoggerTest implements SysoutCaptureAndAssertionAbility {
         Logger.log("str 3");
         Logger.log("str 3");
         Logger.log("str 3");
+        Logger.flushInt();
         //endregion
 
         //region then
-        assertSysoutContains(
-            "str 1\n" +
-            "str 2 (x2)\n" +
-            "0\n" +
-            "str 2\n" +
-            "str 3 (x3)\n"
+        assertSysoutEquals(
+            "string: 1" + lineSeparator() +
+            "string: 2 (x2)" + lineSeparator() +
+            "primitive: 0" + lineSeparator() +
+            "string: 2" + lineSeparator() +
+            "string: 3 (x3)" + lineSeparator()
         );
         //endregion
     }
-
-    */
 }
