@@ -1,9 +1,6 @@
 package com.acme.edu;
 
 import org.jetbrains.annotations.NotNull;
-
-import java.util.Objects;
-
 import static java.lang.System.lineSeparator;
 
 public class Logger {
@@ -14,37 +11,27 @@ public class Logger {
 
     @NotNull
     static private String format(Object message) {
-        StringBuilder result = new StringBuilder("reference: ");
-        result.append(message + lineSeparator());
-        return result.toString();
+        return "reference: " + message + lineSeparator();
     }
 
     @NotNull
     static private String format(int message) {
-        StringBuilder result = new StringBuilder("primitive: ");
-        result.append(message + lineSeparator());
-        return result.toString();
+        return "primitive: " + message + lineSeparator();
     }
 
     @NotNull
     static private String format(Character message) {
-        StringBuilder result = new StringBuilder("char: ");
-        result.append(message + lineSeparator());
-        return result.toString();
+        return "char: " + message + lineSeparator();
     }
 
     @NotNull
     static private String format(Boolean message) {
-        StringBuilder result = new StringBuilder("primitive: ");
-        result.append(message + lineSeparator());
-        return result.toString();
+        return "primitive: " + message + lineSeparator();
     }
 
     @NotNull
     static private String format(String message) {
-        StringBuilder result = new StringBuilder("string: ");
-        result.append(message + lineSeparator());
-        return result.toString();
+        return "string: " + message + lineSeparator();
     }
 
     @NotNull
