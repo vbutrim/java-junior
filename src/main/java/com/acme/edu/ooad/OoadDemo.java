@@ -31,5 +31,7 @@ class Girl extends Woman {
         System.out.println("!!!!!!");
     }
 
+    public Girl() { super(12); }
+
 }
 

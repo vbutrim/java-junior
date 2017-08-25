@@ -41,10 +41,10 @@ public class LoggerTest implements SysoutCaptureAndAssertionAbility {
 
         //region then
         assertSysoutEquals(
-            "string: 1" + lineSeparator() +
-            "primitive: 3" + lineSeparator() +
-            "string: 2" + lineSeparator() +
-            "primitive: 0" + lineSeparator()
+                "string: 1" + lineSeparator() +
+                        "primitive: 3" + lineSeparator() +
+                        "string: 2" + lineSeparator() +
+                        "primitive: 0" + lineSeparator()
         );
         //endregion
     }
@@ -62,11 +62,11 @@ public class LoggerTest implements SysoutCaptureAndAssertionAbility {
 
         //region then
         assertSysoutEquals(
-            "string: 1" + lineSeparator() +
-            "primitive: 10" + lineSeparator() +
-            "primitive: " + Integer.MAX_VALUE + lineSeparator() +
-            "string: 2" + lineSeparator() +
-            "primitive: 0" + lineSeparator()
+                "string: 1" + lineSeparator() +
+                        "primitive: 10" + lineSeparator() +
+                        "primitive: " + Integer.MAX_VALUE + lineSeparator() +
+                        "string: 2" + lineSeparator() +
+                        "primitive: 0" + lineSeparator()
         );
         //endregion
     }
@@ -76,8 +76,8 @@ public class LoggerTest implements SysoutCaptureAndAssertionAbility {
         //region when
         // Logger.countPrevString = 0;
         Logger.log("str 1");
-        Logger.log((byte)10);
-        Logger.log((byte)Byte.MAX_VALUE);
+        Logger.log((byte) 10);
+        Logger.log((byte) Byte.MAX_VALUE);
         Logger.log("str 2");
         Logger.log(0);
         Logger.flush();
@@ -85,11 +85,11 @@ public class LoggerTest implements SysoutCaptureAndAssertionAbility {
 
         //region then
         assertSysoutEquals(
-            "string: 1" + lineSeparator() +
-            "primitive: 10" + lineSeparator() +
-            "primitive: " + Byte.MAX_VALUE + lineSeparator() +
-            "string: 2" + lineSeparator() +
-            "primitive: 0" + lineSeparator()
+                "string: 1" + lineSeparator() +
+                        "primitive: 10" + lineSeparator() +
+                        "primitive: " + Byte.MAX_VALUE + lineSeparator() +
+                        "string: 2" + lineSeparator() +
+                        "primitive: 0" + lineSeparator()
         );
         //endregion
     }
@@ -110,11 +110,11 @@ public class LoggerTest implements SysoutCaptureAndAssertionAbility {
 
         //region then
         assertSysoutEquals(
-            "string: 1" + lineSeparator() +
-            "string: 2 (x2)" + lineSeparator() +
-            "primitive: 0" + lineSeparator() +
-            "string: 2" + lineSeparator() +
-            "string: 3 (x3)" + lineSeparator()
+                "string: 1" + lineSeparator() +
+                        "string: 2 (x2)" + lineSeparator() +
+                        "primitive: 0" + lineSeparator() +
+                        "string: 2" + lineSeparator() +
+                        "string: 3 (x3)" + lineSeparator()
         );
         //endregion
     }
