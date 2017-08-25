@@ -28,8 +28,7 @@ public class ArraysDemo {
 //        System.arraycopy();
     }
 
-    private static void m(int... array) {
-
+    private static void m(int... param) {
     }
 
     public strictfp static void main1(String... args) {
