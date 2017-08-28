@@ -9,7 +9,7 @@ public class OoadDemo {
     }
 
     public static void main(final String[] args) {
-        new Girl();
+        new Girl(0);
     }
 }
 
@@ -31,7 +31,12 @@ class Girl extends Woman {
         System.out.println("!!!!!!");
     }
 
-    public Girl() { super(12); }
+    public Girl() {
+        super(12);
+    }
 
+    public Girl(int i) {
+        super(i);
+    }
 }
 
