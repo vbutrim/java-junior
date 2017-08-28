@@ -14,6 +14,64 @@ public class Message {
 
     }
 
+    public String packCharacterMessage(Character message) {
+        return stringFormatter.formatMessage(message, "char");
+    }
+
+    public String packBooleanMessage(Boolean message) {
+        return stringFormatter.formatMessage(message, "primitive");
+    }
+
+    public String packByteMessage(Byte message) {
+        return stringFormatter.formatMessage(message, "primitive");
+    }
+
+    public String packStringMessage(String message) {
+        String msgLocal = "";
+        String[] args = (message).split(" ");
+        if ("str".equals(args[0])) {
+            message = args[1];
+        }
+
+        if (!previousString.equals((String) message)) {
+            msgLocal += flushString();
+            previousString = message;
+        }
+        ++countPrevString;
+
+        return msgLocal;
+    }
+
+    public String packIntMessage(Integer message) {
+        String msgLocal = "";
+        if (currentSum != 0 && currentSum + message < Integer.MIN_VALUE + message - 2) {
+            msgLocal += flushInt();
+        }
+        currentSum += message;
+        toInput = true;
+
+        return msgLocal;
+    }
+
+    public String packIntArrayMessage(int[] message) {
+        String msgLocal;
+        StringBuilder result = new StringBuilder("{");
+
+        int lengthMas = message.length;
+
+        for (int i = 0; i < lengthMas - 1; ++i) {
+            result.append(message[i] + ", ");
+        }
+        result.append(message[lengthMas - 1] + "}");
+        msgLocal = result.toString();
+
+        return stringFormatter.formatMessage(msgLocal, "primitives array");
+    }
+
+    public String packObjectMessage(Object message) {
+        return stringFormatter.formatMessage(message, "reference");
+    }
+
     public String packMessage(Object message) {
         String msg = "";
         if (!(message instanceof Integer)) {
@@ -25,45 +83,19 @@ public class Message {
         }
 
         if (message instanceof String) {
-            String[] args = ((String) message).split(" ");
-            if ("str".equals(args[0])) {
-                message = args[1];
-            }
-
-            if (!previousString.equals((String) message)) {
-                msg += flushString();
-                previousString = (String) message;
-            }
-            ++countPrevString;
-
-            return msg;
+            return msg + packStringMessage((String) message);
         } else if (message instanceof Character) {
-            msg += (stringFormatter.formatMessage(message, "char"));
+            msg += packCharacterMessage((Character) message);
         } else if (message instanceof Integer) {
-            if (currentSum != 0 && currentSum + (int) message < Integer.MIN_VALUE + (int) message - 2) {
-                msg += flushInt();
-            }
-            currentSum += (int) message;
-            toInput = true;
+            msg += packIntMessage((Integer) message);
         } else if (message instanceof Boolean) {
-            msg += (stringFormatter.formatMessage(message, "primitive"));
+            msg += packBooleanMessage((Boolean) message);
         } else if (message instanceof Byte) {
-            msg += (stringFormatter.formatMessage(message, "primitive"));
+            msg += packByteMessage((Byte) message);
         } else if (message instanceof int[]) {
-            String messageToLog;
-            StringBuilder result = new StringBuilder("{");
-
-            int lengthMas = ((int[]) message).length;
-
-            for (int i = 0; i < lengthMas - 1; ++i) {
-                result.append(((int[])message)[i] + ", ");
-            }
-            result.append(((int[])message)[lengthMas - 1] + "}");
-            messageToLog = result.toString();
-
-            msg += (stringFormatter.formatMessage(messageToLog, "primitives array"));
+            msg += packIntArrayMessage((int[]) message);
         } else {
-            msg += (stringFormatter.formatMessage(message, "reference"));
+            msg += packObjectMessage(message);
         }
 
         resetStringState();
@@ -77,29 +109,29 @@ public class Message {
     }
 
     private String flushInt() {
-        String msg = "";
+        String msgLocal = "";
         if (toInput) {
-            msg = stringFormatter.formatMessage(currentSum, "primitive");
+            msgLocal = stringFormatter.formatMessage(currentSum, "primitive");
             toInput = false;
             currentSum = 0;
         }
 
-        return msg;
+        return msgLocal;
     }
 
     private String flushString() {
-        String msg = "";
+        String msgLocal = "";
 
         if (countPrevString != 0 && !"".equals(previousString)) {
             if (countPrevString > 1) {
-                msg = (stringFormatter.formatMessage(previousString + " (x" + countPrevString + ")", "string"));
+                msgLocal = (stringFormatter.formatMessage(previousString + " (x" + countPrevString + ")", "string"));
             } else {
-                msg = (stringFormatter.formatMessage(previousString, "string"));
+                msgLocal = (stringFormatter.formatMessage(previousString, "string"));
             }
             resetStringState();
         }
 
-        return msg;
+        return msgLocal;
     }
 
     public String flush() {
