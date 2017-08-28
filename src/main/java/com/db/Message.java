@@ -1,7 +1,5 @@
 package com.db;
 
-import static java.lang.System.lineSeparator;
-
 public class Message {
     static private String previousString = "";
     static private int countPrevString = 0;
