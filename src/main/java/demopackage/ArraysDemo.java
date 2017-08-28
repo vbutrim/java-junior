@@ -1,4 +1,4 @@
-package com.acme.edu;
+package demopackage;
 
 import java.util.Arrays;
 import java.util.List;

@@ -1,10 +1,14 @@
 package com.db;
 
+import static java.lang.System.lineSeparator;
+
 public class Message {
     static private String previousString = "";
     static private int countPrevString = 0;
     static private boolean toInput = false;
     static private int currentSum = 0;
+
+    Formatter stringFormatter = new Formatter();
 
     public Message() {
 
@@ -34,7 +38,7 @@ public class Message {
 
             return msg;
         } else if (message instanceof Character) {
-            msg += (new Format((Character) message).getMessageToLog());
+            msg += (stringFormatter.formatMessage(message, "char"));
         } else if (message instanceof Integer) {
             if (currentSum != 0 && currentSum + (int) message < Integer.MIN_VALUE + (int) message - 2) {
                 msg += flushInt();
@@ -42,13 +46,24 @@ public class Message {
             currentSum += (int) message;
             toInput = true;
         } else if (message instanceof Boolean) {
-            msg += (new Format((Boolean) message).getMessageToLog());
+            msg += (stringFormatter.formatMessage(message, "primitive"));
         } else if (message instanceof Byte) {
-            msg += (new Format((int) (Byte) message).getMessageToLog());
+            msg += (stringFormatter.formatMessage(message, "primitive"));
         } else if (message instanceof int[]) {
-            msg += (new Format((int[]) message).getMessageToLog());
+            String messageToLog;
+            StringBuilder result = new StringBuilder("{");
+
+            int lengthMas = ((int[]) message).length;
+
+            for (int i = 0; i < lengthMas - 1; ++i) {
+                result.append(((int[])message)[i] + ", ");
+            }
+            result.append(((int[])message)[lengthMas - 1] + "}");
+            messageToLog = result.toString();
+
+            msg += (stringFormatter.formatMessage(messageToLog, "primitives array"));
         } else {
-            msg += (new Format(message).getMessageToLog());
+            msg += (stringFormatter.formatMessage(message, "reference"));
         }
 
         resetStringState();
@@ -64,7 +79,7 @@ public class Message {
     private String flushInt() {
         String msg = "";
         if (toInput) {
-            msg = new Format(currentSum).getMessageToLog();
+            msg = stringFormatter.formatMessage(currentSum, "primitive");
             toInput = false;
             currentSum = 0;
         }
@@ -77,9 +92,9 @@ public class Message {
 
         if (countPrevString != 0 && !"".equals(previousString)) {
             if (countPrevString > 1) {
-                msg = (new Format(previousString + " (x" + countPrevString + ")").getMessageToLog());
+                msg = (stringFormatter.formatMessage(previousString + " (x" + countPrevString + ")", "string"));
             } else {
-                msg = (new Format(previousString).getMessageToLog());
+                msg = (stringFormatter.formatMessage(previousString, "string"));
             }
             resetStringState();
         }
