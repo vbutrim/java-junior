@@ -9,5 +9,4 @@ public class Formatter {
     public String formatMessage(Object message, String prefix) {
         return prefix + ": " + message + lineSeparator();
     }
-
 }

@@ -1,18 +1,18 @@
 package com.acme.edu;
 
-import com.db.Message;
+import com.db.OldMessage;
 
 public class Logger {
-    static private Message serviceMessage = new Message();
+    static private OldMessage serviceMessage = new OldMessage();
     static private com.db.Logger serviceLogger = new com.db.ConsoleLogger();
 
     public static void log(Object message) {
-        serviceLogger.log(packMessage(message));
+        serviceLogger.log(typeAnalysis(message));
     }
 
-    public static String packMessage(Object message) {
+    public static String typeAnalysis(Object message) {
         /*
-        packMessage from Message.java should be here
+        packMessage from OldMessage.java should be here
          */
         return serviceMessage.packMessage(message);
     }

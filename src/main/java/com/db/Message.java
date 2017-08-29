@@ -1,77 +1,21 @@
 package com.db;
 
 public class Message {
-    static private String previousString = "";
-    static private int countPrevString = 0;
-    static private boolean toInput = false;
-    static private int currentSum = 0;
+    static protected String previousString = "";
+    static protected int countPrevString = 0;
+    static protected boolean toInput = false;
+    static protected int currentSum = 0;
 
-    Formatter stringFormatter = new Formatter();
+    static protected String msg;
+
+    static protected Formatter stringFormatter = new Formatter();
 
     public Message() {
 
     }
 
-    public String packCharacterMessage(Character message) {
-        return stringFormatter.formatMessage(message, "char");
-    }
-
-    public String packBooleanMessage(Boolean message) {
-        return stringFormatter.formatMessage(message, "primitive");
-    }
-
-    public String packByteMessage(Byte message) {
-        return stringFormatter.formatMessage(message, "primitive");
-    }
-
-    public String packStringMessage(String message) {
-        String msgLocal = "";
-        String[] args = (message).split(" ");
-        if ("str".equals(args[0])) {
-            message = args[1];
-        }
-
-        if (!previousString.equals((String) message)) {
-            msgLocal += flushString();
-            previousString = message;
-        }
-        ++countPrevString;
-
-        return msgLocal;
-    }
-
-    public String packIntMessage(Integer message) {
-        String msgLocal = "";
-        if (currentSum != 0 && currentSum + message < Integer.MIN_VALUE + message - 2) {
-            msgLocal += flushInt();
-        }
-        currentSum += message;
-        toInput = true;
-
-        return msgLocal;
-    }
-
-    public String packIntArrayMessage(int[] message) {
-        String msgLocal;
-        StringBuilder result = new StringBuilder("{");
-
-        int lengthMas = message.length;
-
-        for (int i = 0; i < lengthMas - 1; ++i) {
-            result.append(message[i] + ", ");
-        }
-        result.append(message[lengthMas - 1] + "}");
-        msgLocal = result.toString();
-
-        return stringFormatter.formatMessage(msgLocal, "primitives array");
-    }
-
-    public String packObjectMessage(Object message) {
-        return stringFormatter.formatMessage(message, "reference");
-    }
-
     public String packMessage(Object message) {
-        String msg = "";
+        msg = "";
         if (!(message instanceof Integer)) {
             msg += flushInt();
         }
@@ -80,25 +24,7 @@ public class Message {
             msg += flushString();
         }
 
-        if (message instanceof String) {
-            return msg + packStringMessage((String) message);
-        } else if (message instanceof Character) {
-            msg += packCharacterMessage((Character) message);
-        } else if (message instanceof Integer) {
-            msg += packIntMessage((Integer) message);
-        } else if (message instanceof Boolean) {
-            msg += packBooleanMessage((Boolean) message);
-        } else if (message instanceof Byte) {
-            msg += packByteMessage((Byte) message);
-        } else if (message instanceof int[]) {
-            msg += packIntArrayMessage((int[]) message);
-        } else {
-            msg += packObjectMessage(message);
-        }
-
-        resetStringState();
-
-        return msg;
+        return "";
     }
 
     private void resetStringState() {
