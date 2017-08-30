@@ -1,5 +1,5 @@
 package com.db;
 
-public interface Logger {
+public interface Saver {
     void log(String message);
 }

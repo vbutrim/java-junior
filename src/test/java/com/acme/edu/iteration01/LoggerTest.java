@@ -62,7 +62,7 @@ public class LoggerTest implements SysoutCaptureAndAssertionAbility {
     }
 
     /*
-    TODO: implement Logger solution to match specification as tests
+    TODO: implement Saver solution to match specification as tests
     */
     @Test @Ignore
     public void shouldLogChar() throws IOException {

@@ -27,7 +27,7 @@ public class LoggerTest implements SysoutCaptureAndAssertionAbility {
 
 
     /*
-    TODO: implement Logger solution to match specification as tests
+    TODO: implement Saver solution to match specification as tests
     */
     @Test @Ignore
     public void shouldLogSequentIntegersAsSum() throws IOException {
@@ -75,7 +75,7 @@ public class LoggerTest implements SysoutCaptureAndAssertionAbility {
     @Test @Ignore
     public void shouldLogCorrectlyByteOverflowWhenSequentBytes() {
         //region when
-        // Logger.countPrevString = 0;
+        // Saver.countPrevString = 0;
         Logger.log("str 1");
         Logger.log((byte) 10);
         Logger.log((byte) Byte.MAX_VALUE);

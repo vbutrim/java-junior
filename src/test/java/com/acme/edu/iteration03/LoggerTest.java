@@ -26,7 +26,7 @@ public class LoggerTest implements SysoutCaptureAndAssertionAbility {
     //endregion
 
     /*
-    TODO: implement Logger solution to match specification as tests
+    TODO: implement Saver solution to match specification as tests
     */
 
     @Test @Ignore
@@ -79,7 +79,7 @@ public class LoggerTest implements SysoutCaptureAndAssertionAbility {
     @Test @Ignore
     public void shouldLogStringsWithOneMethodCall() throws IOException {
         //region when
-        // Logger.log("str1", "string 2", "str 3");
+        // Saver.log("str1", "string 2", "str 3");
         //endregion
 
         //region then
@@ -90,7 +90,7 @@ public class LoggerTest implements SysoutCaptureAndAssertionAbility {
     @Test @Ignore
     public void shouldLogIntegersWithOneMethodCall() throws IOException {
         //region when
-        // Logger.log(-1, 0, 1, 3);
+        // Saver.log(-1, 0, 1, 3);
         //endregion
 
         //region then

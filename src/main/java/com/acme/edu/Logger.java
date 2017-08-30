@@ -1,18 +1,20 @@
 package com.acme.edu;
 
-import com.db.OldMessage;
+import com.db.ConsoleSaver;
+import com.db.Message;
+import com.db.Saver;
 
 public class Logger {
-    static private OldMessage serviceMessage = new OldMessage();
-    static private com.db.Logger serviceLogger = new com.db.ConsoleLogger();
+    static private Message serviceMessage = new Message();
+    static private Saver serviceSaver = new ConsoleSaver();
 
     public static void log(Object message) {
-        serviceLogger.log(typeAnalysis(message));
+        serviceSaver.log(typeAnalysis(message));
     }
 
     public static String typeAnalysis(Object message) {
         /*
-        packMessage from OldMessage.java should be here
+        packMessage from Message.java should be here
          */
         return serviceMessage.packMessage(message);
     }
@@ -21,7 +23,7 @@ public class Logger {
      * finalize work with logger at all
      */
     public static void flush() {
-        serviceLogger.log(serviceMessage.flush());
+        serviceSaver.log(serviceMessage.flush());
     }
 }
 
