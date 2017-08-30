@@ -14,18 +14,38 @@ public class Message {
 
     }
 
+    /**
+     * Specific handler for char
+     * @param message
+     * @return
+     */
     public String packCharacterMessage(Character message) {
         return stringFormatter.formatMessage(message, "char");
     }
 
+    /**
+     * Specific handler for boolean
+     * @param message
+     * @return
+     */
     public String packBooleanMessage(Boolean message) {
         return stringFormatter.formatMessage(message, "primitive");
     }
 
+    /**
+     * Specific handler for byte
+     * @param message
+     * @return
+     */
     public String packByteMessage(Byte message) {
         return stringFormatter.formatMessage(message, "primitive");
     }
 
+    /**
+     * Specific handler for String
+     * @param message
+     * @return
+     */
     public String packStringMessage(String message) {
         String msgLocal = "";
         String[] args = (message).split(" ");
@@ -42,6 +62,11 @@ public class Message {
         return msgLocal;
     }
 
+    /**
+     * Specific handler for Int
+     * @param message
+     * @return
+     */
     public String packIntMessage(Integer message) {
         String msgLocal = "";
         if (currentSum != 0 && currentSum + message < Integer.MIN_VALUE + message - 2) {
@@ -53,6 +78,11 @@ public class Message {
         return msgLocal;
     }
 
+    /**
+     * Specific handler for Int array
+     * @param message
+     * @return
+     */
     public String packIntArrayMessage(int[] message) {
         String msgLocal;
         StringBuilder result = new StringBuilder("{");
@@ -68,10 +98,20 @@ public class Message {
         return stringFormatter.formatMessage(msgLocal, "primitives array");
     }
 
+    /**
+     * Common handler for other objects
+     * @param message
+     * @return
+     */
     public String packObjectMessage(Object message) {
         return stringFormatter.formatMessage(message, "reference");
     }
 
+    /**
+     * general handler of Object
+     * @param message
+     * @return String format
+     */
     public String packMessage(Object message) {
         msg = "";
         if (!(message instanceof Integer)) {
@@ -108,6 +148,10 @@ public class Message {
         previousString = "";
     }
 
+    /**
+     * clear buffer int
+     * @return
+     */
     private String flushInt() {
         String msgLocal = "";
         if (toInput) {
@@ -119,6 +163,10 @@ public class Message {
         return msgLocal;
     }
 
+    /**
+     * clear buffer string
+     * @return
+     */
     private String flushString() {
         String msgLocal = "";
 
@@ -134,6 +182,10 @@ public class Message {
         return msgLocal;
     }
 
+    /**
+     * clear buffer
+     * @return
+     */
     public String flush() {
         return flushInt() + flushString();
     }

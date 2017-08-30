@@ -6,6 +6,12 @@ public class Formatter {
     public Formatter() {
     }
 
+    /**
+     * format message with prefix
+     * @param message
+     * @param prefix
+     * @return
+     */
     public String formatMessage(Object message, String prefix) {
         return prefix + ": " + message + lineSeparator();
     }
