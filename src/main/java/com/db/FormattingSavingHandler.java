@@ -1,8 +1,9 @@
 package com.db;
 
-public class FormattingSavingHandler implements EventHandler{
+public class FormattingSavingHandler implements EventHandler {
     /**
      * general handler of Object
+     *
      * @param message
      * @return String format
      */
@@ -43,6 +44,7 @@ public class FormattingSavingHandler implements EventHandler{
 
     /**
      * clear buffer
+     *
      * @return
      */
     public String flush() {
@@ -51,6 +53,7 @@ public class FormattingSavingHandler implements EventHandler{
 
     /**
      * general func
+     *
      * @param message
      */
     @Override
@@ -60,6 +63,7 @@ public class FormattingSavingHandler implements EventHandler{
 
     /**
      * Specific handler for char
+     *
      * @param message
      * @return
      */
@@ -69,6 +73,7 @@ public class FormattingSavingHandler implements EventHandler{
 
     /**
      * Specific handler for boolean
+     *
      * @param message
      * @return
      */
@@ -78,6 +83,7 @@ public class FormattingSavingHandler implements EventHandler{
 
     /**
      * Specific handler for byte
+     *
      * @param message
      * @return
      */
@@ -87,6 +93,7 @@ public class FormattingSavingHandler implements EventHandler{
 
     /**
      * Specific handler for String
+     *
      * @param message
      * @return
      */
@@ -108,6 +115,7 @@ public class FormattingSavingHandler implements EventHandler{
 
     /**
      * Specific handler for Int
+     *
      * @param message
      * @return
      */
@@ -124,6 +132,7 @@ public class FormattingSavingHandler implements EventHandler{
 
     /**
      * Specific handler for Int array
+     *
      * @param message
      * @return
      */
@@ -144,6 +153,7 @@ public class FormattingSavingHandler implements EventHandler{
 
     /**
      * Common handler for other objects
+     *
      * @param message
      * @return
      */
@@ -161,6 +171,7 @@ public class FormattingSavingHandler implements EventHandler{
 
     /**
      * clear buffer int
+     *
      * @return
      */
     private String flushInt() {
@@ -176,6 +187,7 @@ public class FormattingSavingHandler implements EventHandler{
 
     /**
      * clear buffer string
+     *
      * @return
      */
     private String flushString() {
@@ -193,12 +205,6 @@ public class FormattingSavingHandler implements EventHandler{
         return msgLocal;
     }
 
-    static private final String PRIMITIVEPREFIX = "primitive";
-    static private final String STRINGPREFIX = "string";
-    static private final String OBJECTPREFIX = "reference";
-    static private final String INTARRAYPREFIX = "primitives array";
-    static private final String CHARPREFIX = "char";
-
     static private String previousString = "";
     static private int countPrevString = 0;
     static private boolean toInput = false;
@@ -208,4 +214,10 @@ public class FormattingSavingHandler implements EventHandler{
 
     static private Formatter stringFormatter = new Formatter();
     static private Saver serviceSave = new ConsoleSaver();
+
+    static private final String PRIMITIVEPREFIX = "primitive";
+    static private final String STRINGPREFIX = "string";
+    static private final String OBJECTPREFIX = "reference";
+    static private final String INTARRAYPREFIX = "primitives array";
+    static private final String CHARPREFIX = "char";
 }
