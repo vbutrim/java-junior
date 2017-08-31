@@ -1,11 +1,11 @@
 package com.db;
 
 public class FormattingSavingHandler implements EventHandler{
-    final String PRIMITIVE_PREFIX = "primitive";
-    final String STRING_PREFIX = "string";
-    final String OBJECT_PREFIX = "reference";
-    final String INTARRAY_PREFIX = "primitives array";
-    final String CHAR_PREFIX = "char";
+    static final String PRIMITIVEPREFIX = "primitive";
+    static final String STRINGPREFIX = "string";
+    static final String OBJECTPREFIX = "reference";
+    static final String INTARRAYPREFIX = "primitives array";
+    static final String CHARPREFIX = "char";
 
     static private String previousString = "";
     static private int countPrevString = 0;
@@ -80,7 +80,7 @@ public class FormattingSavingHandler implements EventHandler{
      * @return
      */
     private String packCharacterMessage(Character message) {
-        return stringFormatter.formatMessage(message, CHAR_PREFIX);
+        return stringFormatter.formatMessage(message, CHARPREFIX);
     }
 
     /**
@@ -89,7 +89,7 @@ public class FormattingSavingHandler implements EventHandler{
      * @return
      */
     private String packBooleanMessage(Boolean message) {
-        return stringFormatter.formatMessage(message, PRIMITIVE_PREFIX);
+        return stringFormatter.formatMessage(message, PRIMITIVEPREFIX);
     }
 
     /**
@@ -98,7 +98,7 @@ public class FormattingSavingHandler implements EventHandler{
      * @return
      */
     private String packByteMessage(Byte message) {
-        return stringFormatter.formatMessage(message, PRIMITIVE_PREFIX);
+        return stringFormatter.formatMessage(message, PRIMITIVEPREFIX);
     }
 
     /**
@@ -155,7 +155,7 @@ public class FormattingSavingHandler implements EventHandler{
         result.append(message[lengthMas - 1] + "}");
         msgLocal = result.toString();
 
-        return stringFormatter.formatMessage(msgLocal, INTARRAY_PREFIX);
+        return stringFormatter.formatMessage(msgLocal, INTARRAYPREFIX);
     }
 
     /**
@@ -164,7 +164,7 @@ public class FormattingSavingHandler implements EventHandler{
      * @return
      */
     private String packObjectMessage(Object message) {
-        return stringFormatter.formatMessage(message, OBJECT_PREFIX);
+        return stringFormatter.formatMessage(message, OBJECTPREFIX);
     }
 
     /**
@@ -182,7 +182,7 @@ public class FormattingSavingHandler implements EventHandler{
     private String flushInt() {
         String msgLocal = "";
         if (toInput) {
-            msgLocal = stringFormatter.formatMessage(currentSum, PRIMITIVE_PREFIX);
+            msgLocal = stringFormatter.formatMessage(currentSum, PRIMITIVEPREFIX);
             toInput = false;
             currentSum = 0;
         }
@@ -201,7 +201,7 @@ public class FormattingSavingHandler implements EventHandler{
             if (countPrevString > 1) {
                 msgLocal = stringFormatter.formatMessage(previousString + " (x" + countPrevString + ")", "string");
             } else {
-                msgLocal = stringFormatter.formatMessage(previousString, STRING_PREFIX);
+                msgLocal = stringFormatter.formatMessage(previousString, STRINGPREFIX);
             }
             resetStringState();
         }
