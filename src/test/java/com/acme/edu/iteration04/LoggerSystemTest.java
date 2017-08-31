@@ -10,7 +10,7 @@ import java.io.IOException;
 /**
  * Created by Java_16 on 30.08.2017.
  */
-public class LoggerFacadeTest implements SysoutCaptureAndAssertionAbility{
+public class LoggerSystemTest implements SysoutCaptureAndAssertionAbility{
     @Before
     public void setUpSystemOut() throws IOException {
         resetOut();
@@ -18,7 +18,7 @@ public class LoggerFacadeTest implements SysoutCaptureAndAssertionAbility{
     }
 
     @Test
-    public void testLoggerFacade() {
+    public void shouldLogToConsole() {
         Logger.log(10);
         Logger.flush();
 

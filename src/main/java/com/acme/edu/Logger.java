@@ -1,30 +1,26 @@
 package com.acme.edu;
 
-import com.db.ConsoleSaver;
-import com.db.Message;
-import com.db.Saver;
+import com.db.*;
 
 public class Logger {
-    static private Message serviceMessage = new Message();
-    static private Saver serviceSaver = new ConsoleSaver();
+    // static private FormattingSavingHandler serviceFormattingSavingHandler = new FormattingSavingHandler();
+    // static private Saver serviceSaver = new ConsoleSaver();
+    static Context myContext = new Context(
+            new FormattingSavingHandler());
+
 
     public static void log(Object message) {
-        serviceSaver.log(typeAnalysis(message));
-    }
-
-    public static String typeAnalysis(Object message) {
-        /*
-        packMessage from Message.java should be here
-         */
-        return serviceMessage.packMessage(message);
+        // serviceSaver.log(serviceFormattingSavingHandler.packMessage(message));
+        myContext.logEvent(message);
     }
 
     /**
      * finalize work with logger at all
      */
     public static void flush() {
-        serviceSaver.log(serviceMessage.flush());
+        log(new FlushTrigger());
     }
+        // myContext.flush();
 }
 
 

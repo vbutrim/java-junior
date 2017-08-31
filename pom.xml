@@ -52,7 +52,7 @@
         <configuration>
           <targetClasses>
             <param>com.acme.edu.Logger</param>
-            <param>com.db.Message</param>
+            <param>com.db.FormattingSavingHandler</param>
             <param>com.db.ConsoleSaver</param>
             <param>com.db.Saver</param>
             <param>com.db.Formatter</param>

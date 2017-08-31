@@ -4,6 +4,7 @@ import com.db.ConsoleSaver;
 import com.db.Saver;
 import com.acme.edu.SysoutCaptureAndAssertionAbility;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 
 import java.io.IOException;

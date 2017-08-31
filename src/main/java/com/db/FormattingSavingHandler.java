@@ -1,6 +1,6 @@
 package com.db;
 
-public class Message {
+public class FormattingSavingHandler implements EventHandler{
     static private String previousString = "";
     static private int countPrevString = 0;
     static private boolean toInput = false;
@@ -9,8 +9,9 @@ public class Message {
     static private String msg;
 
     static Formatter stringFormatter = new Formatter();
+    static Saver serviceSave = new ConsoleSaver();
 
-    public Message() {
+    public FormattingSavingHandler() {
 
     }
 
@@ -188,5 +189,15 @@ public class Message {
      */
     public String flush() {
         return flushInt() + flushString();
+    }
+
+    @Override
+    public void handleEvent(Object message) {
+        if (message instanceof FlushTrigger) {
+            serviceSave.log(flush());
+            return;
+        }
+
+        serviceSave.log(packMessage(message));
     }
 }

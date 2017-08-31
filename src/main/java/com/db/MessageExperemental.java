@@ -1,7 +1,7 @@
 package com.db;
 
 /*
-public class Message {
+public class FormattingSavingHandler {
     static protected String previousString = "";
     static protected int countPrevString = 0;
     static protected boolean toInput = false;
@@ -11,7 +11,7 @@ public class Message {
 
     static protected Formatter stringFormatter = new Formatter();
 
-    public Message() {
+    public FormattingSavingHandler() {
 
     }
 
