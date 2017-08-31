@@ -81,7 +81,7 @@ public class MessageTest {
         FormattingSavingHandler sut = new FormattingSavingHandler();
         sut.packMessage("str 4");
         sut.packMessage("str 4");
-        
+
         assertThat(sut.flush()).isEqualTo("string: 4 (x2)" + lineSeparator());
     }
 

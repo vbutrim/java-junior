@@ -6,6 +6,8 @@ public class Logger {
     static Context myContext = new Context(
             new FormattingSavingHandler());
 
+    private Logger() {
+    }
 
     public static void log(Object message) {
         myContext.logEvent(message);

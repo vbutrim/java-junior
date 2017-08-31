@@ -5,6 +5,9 @@ import java.util.List;
 
 import static java.util.Arrays.asList;
 
+/**
+ * "choose handlers" class
+ */
 public class Context {
     private List<EventHandler> handlers = new ArrayList<>();
 

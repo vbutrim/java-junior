@@ -3,9 +3,6 @@ package com.db;
 import static java.lang.System.lineSeparator;
 
 public class Formatter {
-    public Formatter() {
-    }
-
     /**
      * format message with prefix
      * @param message
