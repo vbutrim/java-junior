@@ -81,7 +81,7 @@ public class MessageTest {
         FormattingSavingHandler sut = new FormattingSavingHandler();
         sut.packMessage("str 4");
         sut.packMessage("str 4");
-
+        
         assertThat(sut.flush()).isEqualTo("string: 4 (x2)" + lineSeparator());
     }
 
@@ -89,8 +89,7 @@ public class MessageTest {
     public void shouldReturnDecoratedWhenPackBigmasMessage() {
         FormattingSavingHandler sut = new FormattingSavingHandler();
         sut.packMessage(Integer.MAX_VALUE);
-        sut.packMessage(10);
-
-        assertThat(sut.flush()).isEqualTo("primitive: -2147483639" + lineSeparator());
+        assertThat(sut.packMessage(10)).isEqualTo("primitive: " + Integer.MAX_VALUE + lineSeparator());
+        assertThat(sut.flush()).isEqualTo("primitive: 10" + lineSeparator());
     }
 }

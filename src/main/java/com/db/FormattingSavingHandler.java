@@ -66,7 +66,7 @@ public class FormattingSavingHandler implements EventHandler{
      */
     public String packIntMessage(Integer message) {
         String msgLocal = "";
-        if (currentSum != 0 && currentSum + message < Integer.MIN_VALUE + message - 2) {
+        if (currentSum != 0 && !(currentSum < Integer.MAX_VALUE - message)) {
             msgLocal += flushInt();
         }
         currentSum += message;
@@ -110,6 +110,10 @@ public class FormattingSavingHandler implements EventHandler{
      * @return String format
      */
     public String packMessage(Object message) {
+        if (message instanceof FlushTrigger) {
+            return flush();
+        }
+
         msg = "";
         if (!(message instanceof Integer)) {
             msg += flushInt();
@@ -189,11 +193,6 @@ public class FormattingSavingHandler implements EventHandler{
 
     @Override
     public void handleEvent(Object message) {
-        if (message instanceof FlushTrigger) {
-            serviceSave.log(flush());
-            return;
-        }
-
         serviceSave.log(packMessage(message));
     }
 }
