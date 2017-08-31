@@ -11,10 +11,6 @@ public class FormattingSavingHandler implements EventHandler{
     static Formatter stringFormatter = new Formatter();
     static Saver serviceSave = new ConsoleSaver();
 
-    public FormattingSavingHandler() {
-
-    }
-
     /**
      * Specific handler for char
      * @param message
@@ -54,7 +50,7 @@ public class FormattingSavingHandler implements EventHandler{
             message = args[1];
         }
 
-        if (!previousString.equals((String) message)) {
+        if (!previousString.equals(message)) {
             msgLocal += flushString();
             previousString = message;
         }
@@ -173,9 +169,9 @@ public class FormattingSavingHandler implements EventHandler{
 
         if (countPrevString != 0 && !"".equals(previousString)) {
             if (countPrevString > 1) {
-                msgLocal = (stringFormatter.formatMessage(previousString + " (x" + countPrevString + ")", "string"));
+                msgLocal = stringFormatter.formatMessage(previousString + " (x" + countPrevString + ")", "string");
             } else {
-                msgLocal = (stringFormatter.formatMessage(previousString, "string"));
+                msgLocal = stringFormatter.formatMessage(previousString, "string");
             }
             resetStringState();
         }
