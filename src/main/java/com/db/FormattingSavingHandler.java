@@ -1,6 +1,22 @@
 package com.db;
 
 public class FormattingSavingHandler implements EventHandler {
+    private static final String PRIMITIVEPREFIX = "primitive";
+    private static final String STRINGPREFIX = "string";
+    private static final String OBJECTPREFIX = "reference";
+    private static final String INTARRAYPREFIX = "primitives array";
+    private static final String CHARPREFIX = "char";
+
+    private static String previousString = "";
+    private static int countPrevString = 0;
+    private static boolean toInput = false;
+    private static int currentSum = 0;
+
+    private static String msg;
+
+    private static Formatter stringFormatter = new Formatter();
+    private static Saver serviceSave = new ConsoleSaver();
+
     /**
      * general handler of Object
      *
@@ -204,20 +220,4 @@ public class FormattingSavingHandler implements EventHandler {
 
         return msgLocal;
     }
-
-    static private String previousString = "";
-    static private int countPrevString = 0;
-    static private boolean toInput = false;
-    static private int currentSum = 0;
-
-    static private String msg;
-
-    static private Formatter stringFormatter = new Formatter();
-    static private Saver serviceSave = new ConsoleSaver();
-
-    static private final String PRIMITIVEPREFIX = "primitive";
-    static private final String STRINGPREFIX = "string";
-    static private final String OBJECTPREFIX = "reference";
-    static private final String INTARRAYPREFIX = "primitives array";
-    static private final String CHARPREFIX = "char";
 }
