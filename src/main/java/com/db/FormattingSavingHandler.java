@@ -1,22 +1,6 @@
 package com.db;
 
 public class FormattingSavingHandler implements EventHandler{
-    static final String PRIMITIVEPREFIX = "primitive";
-    static final String STRINGPREFIX = "string";
-    static final String OBJECTPREFIX = "reference";
-    static final String INTARRAYPREFIX = "primitives array";
-    static final String CHARPREFIX = "char";
-
-    static private String previousString = "";
-    static private int countPrevString = 0;
-    static private boolean toInput = false;
-    static private int currentSum = 0;
-
-    static private String msg;
-
-    static Formatter stringFormatter = new Formatter();
-    static Saver serviceSave = new ConsoleSaver();
-
     /**
      * general handler of Object
      * @param message
@@ -73,6 +57,22 @@ public class FormattingSavingHandler implements EventHandler{
     public void handleEvent(Object message) {
         serviceSave.log(packMessage(message));
     }
+
+    static private final String PRIMITIVEPREFIX = "primitive";
+    static private final String STRINGPREFIX = "string";
+    static private final String OBJECTPREFIX = "reference";
+    static private final String INTARRAYPREFIX = "primitives array";
+    static private final String CHARPREFIX = "char";
+
+    static private String previousString = "";
+    static private int countPrevString = 0;
+    static private boolean toInput = false;
+    static private int currentSum = 0;
+
+    static private String msg;
+
+    static private Formatter stringFormatter = new Formatter();
+    static private Saver serviceSave = new ConsoleSaver();
 
     /**
      * Specific handler for char
@@ -143,7 +143,7 @@ public class FormattingSavingHandler implements EventHandler{
      * @param message
      * @return
      */
-    public String packIntArrayMessage(int[] message) {
+    private String packIntArrayMessage(int[] message) {
         String msgLocal;
         StringBuilder result = new StringBuilder("{");
 
