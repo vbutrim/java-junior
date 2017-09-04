@@ -1,5 +1,6 @@
 package com.db;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -16,6 +17,12 @@ public class Context {
     }
 
     public void logEvent(Object message) {
-        handlers.forEach(h -> h.handleEvent(message));
+        handlers.forEach((EventHandler h) -> {
+            try {
+                h.handleEvent(message);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        });
     }
 }

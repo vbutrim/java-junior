@@ -1,5 +1,9 @@
 package com.db;
 
+import com.sun.xml.internal.ws.policy.privateutil.PolicyUtils;
+
+import java.io.IOException;
+
 public class FormattingSavingHandler implements EventHandler {
     private static final String PRIMITIVEPREFIX = "primitive";
     private static final String STRINGPREFIX = "string";
@@ -11,11 +15,13 @@ public class FormattingSavingHandler implements EventHandler {
     private static int countPrevString = 0;
     private static boolean toInput = false;
     private static int currentSum = 0;
+    private static boolean toInputByte = false;
+    private static byte currentSumByte = 0;
 
     private static String msg;
 
-    private static Formatter stringFormatter = new Formatter();
-    private static Saver serviceSave = new ConsoleSaver();
+    private Formatter stringFormatter = new Formatter();
+    private Saver serviceSave = new ConsoleSaver();
 
     /**
      * general handler of Object
@@ -23,7 +29,7 @@ public class FormattingSavingHandler implements EventHandler {
      * @param message
      * @return String format
      */
-    public String packMessage(Object message) {
+    public String packMessage(Object message) throws IOException {
         if (message instanceof FlushTrigger) {
             return flush();
         }
@@ -35,6 +41,10 @@ public class FormattingSavingHandler implements EventHandler {
 
         if (!(message instanceof String)) {
             msg += flushString();
+        }
+
+        if (!(message instanceof Byte)) {
+            msg += flushByte();
         }
 
         if (message instanceof String) {
@@ -63,8 +73,8 @@ public class FormattingSavingHandler implements EventHandler {
      *
      * @return
      */
-    public String flush() {
-        return flushInt() + flushString();
+    public String flush() throws IOException {
+        return flushInt() + flushByte() + flushString();
     }
 
     /**
@@ -73,7 +83,7 @@ public class FormattingSavingHandler implements EventHandler {
      * @param message
      */
     @Override
-    public void handleEvent(Object message) {
+    public void handleEvent(Object message) throws IOException {
         serviceSave.log(packMessage(message));
     }
 
@@ -83,7 +93,7 @@ public class FormattingSavingHandler implements EventHandler {
      * @param message
      * @return
      */
-    private String packCharacterMessage(Character message) {
+    private String packCharacterMessage(Character message) throws IOException{
         return stringFormatter.formatMessage(message, CHARPREFIX);
     }
 
@@ -93,7 +103,7 @@ public class FormattingSavingHandler implements EventHandler {
      * @param message
      * @return
      */
-    private String packBooleanMessage(Boolean message) {
+    private String packBooleanMessage(Boolean message) throws IOException {
         return stringFormatter.formatMessage(message, PRIMITIVEPREFIX);
     }
 
@@ -103,8 +113,15 @@ public class FormattingSavingHandler implements EventHandler {
      * @param message
      * @return
      */
-    private String packByteMessage(Byte message) {
-        return stringFormatter.formatMessage(message, PRIMITIVEPREFIX);
+    private String packByteMessage(Byte message) throws IOException {
+        String msgLocal = "";
+        if (currentSumByte != 0 && !(currentSumByte < Byte.MAX_VALUE - message)) {
+            msgLocal += flushByte();
+        }
+        currentSumByte += message;
+        toInputByte = true;
+
+        return msgLocal;
     }
 
     /**
@@ -113,7 +130,7 @@ public class FormattingSavingHandler implements EventHandler {
      * @param message
      * @return
      */
-    private String packStringMessage(String message) {
+    private String packStringMessage(String message) throws IOException {
         String msgLocal = "";
         String[] args = (message).split(" ");
         if ("str".equals(args[0])) {
@@ -135,7 +152,7 @@ public class FormattingSavingHandler implements EventHandler {
      * @param message
      * @return
      */
-    private String packIntMessage(Integer message) {
+    private String packIntMessage(Integer message) throws IOException {
         String msgLocal = "";
         if (currentSum != 0 && !(currentSum < Integer.MAX_VALUE - message)) {
             msgLocal += flushInt();
@@ -152,7 +169,7 @@ public class FormattingSavingHandler implements EventHandler {
      * @param message
      * @return
      */
-    private String packIntArrayMessage(int[] message) {
+    private String packIntArrayMessage(int[] message) throws IOException {
         String msgLocal;
         StringBuilder result = new StringBuilder("{");
 
@@ -173,14 +190,14 @@ public class FormattingSavingHandler implements EventHandler {
      * @param message
      * @return
      */
-    private String packObjectMessage(Object message) {
+    private String packObjectMessage(Object message) throws IOException {
         return stringFormatter.formatMessage(message, OBJECTPREFIX);
     }
 
     /**
      * make null fields
      */
-    private void resetStringState() {
+    private void resetStringState() throws IOException{
         countPrevString = 0;
         previousString = "";
     }
@@ -190,7 +207,7 @@ public class FormattingSavingHandler implements EventHandler {
      *
      * @return
      */
-    private String flushInt() {
+    private String flushInt() throws IOException {
         String msgLocal = "";
         if (toInput) {
             msgLocal = stringFormatter.formatMessage(currentSum, PRIMITIVEPREFIX);
@@ -202,11 +219,27 @@ public class FormattingSavingHandler implements EventHandler {
     }
 
     /**
+     * byte insert is ended
+     * @return
+     * @throws IOException
+     */
+    private String flushByte() throws IOException {
+        String msgLocal = "";
+        if (toInputByte) {
+            msgLocal = stringFormatter.formatMessage(currentSumByte, PRIMITIVEPREFIX);
+            toInputByte = false;
+            currentSumByte = 0;
+        }
+
+        return msgLocal;
+    }
+
+    /**
      * clear buffer string
      *
      * @return
      */
-    private String flushString() {
+    private String flushString() throws IOException {
         String msgLocal = "";
 
         if (countPrevString != 0 && !"".equals(previousString)) {
